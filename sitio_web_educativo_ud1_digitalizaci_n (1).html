@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UD1: Digitalización de los Sectores Productivos | Liceo La Paz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#095186',
+                            800: '#0c4a6e',
+                            900: '#0b3954',
+                            red: '#d97706',
+                            accent: '#c2410c'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .tab-active { border-bottom: 3px solid #0284c7; color: #0284c7; font-weight: 700; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- BARRA SUPERIOR DE NAVEGACIÓN -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logotipo / Título -->
+                <div class="flex items-center gap-3">
+                    <div class="bg-red-700 text-white font-black px-3 py-1.5 rounded-lg text-sm tracking-wider shadow">
+                        LICEO LA PAZ
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Módulo de Digitalización</span>
+                        <h1 class="text-base font-bold text-slate-900 leading-tight">Unidad Didáctica 1</h1>
+                    </div>
+                </div>
+
+                <!-- Buscador en tiempo real (Desktop) -->
+                <div class="hidden md:flex flex-1 max-w-md mx-8 relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <input type="text" id="searchInputDesktop" onkeyup="filterContent()" placeholder="Buscar conceptos (ej. CPS, OT/IT, Edge, ODS)..." class="w-full pl-10 pr-4 py-2 bg-slate-100 hover:bg-slate-200/70 focus:bg-white text-sm rounded-xl border border-transparent focus:border-brand-500 focus:outline-none transition">
+                </div>
+
+                <!-- Menú Navegación (Desktop) -->
+                <nav class="hidden xl:flex items-center space-x-1 text-xs font-semibold">
+                    <a href="#introduccion" class="px-3 py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition">Inicio</a>
+                    <a href="#revoluciones" class="px-3 py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition">Cronología</a>
+                    <a href="#industria40" class="px-3 py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition">Industria 4.0</a>
+                    <a href="#cps" class="px-3 py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition">CPS</a>
+                    <a href="#empresa" class="px-3 py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition">Unidades</a>
+                    <a href="#convergencia" class="px-3 py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition">OT/IT</a>
+                    <a href="#tecnologias" class="px-3 py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition">Tecnologías</a>
+                    <a href="#casos" class="px-3 py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition">Casos</a>
+                    <a href="#evaluacion" class="px-3 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition shadow-sm">Test</a>
+                </nav>
+
+                <!-- Botón Menú Móvil -->
+                <div class="flex items-center xl:hidden gap-2">
+                    <button onclick="toggleMobileMenu()" class="p-2 rounded-lg text-slate-600 hover:bg-slate-100 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buscador Móvil Integrado -->
+        <div class="md:hidden px-4 pb-3">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <input type="text" id="searchInputMobile" onkeyup="filterContent()" placeholder="Buscar términos en la lección..." class="w-full pl-10 pr-4 py-2 bg-slate-100 text-sm rounded-xl border border-transparent focus:border-brand-500 focus:outline-none">
+            </div>
+        </div>
+
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobileMenu" class="hidden xl:hidden bg-white border-t border-slate-200 px-4 pt-2 pb-6 space-y-2 shadow-lg">
+            <a href="#introduccion" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">1. Introducción</a>
+            <a href="#revoluciones" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">2. Revoluciones Industriales</a>
+            <a href="#industria40" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">3. Industria 4.0</a>
+            <a href="#cps" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">4. Sistemas Ciberfísicos (CPS)</a>
+            <a href="#empresa" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">5. Estructura de la Empresa</a>
+            <a href="#convergencia" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">6. Convergencia OT/IT</a>
+            <a href="#tecnologias" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">7. Tecnologías & ODS</a>
+            <a href="#casos" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">8. Casos Prácticos</a>
+            <a href="#evaluacion" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium bg-brand-600 text-white text-center">9. Evaluación (Test 10 preguntas)</a>
+            <a href="#referencias" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">10. Referencias</a>
+        </div>
+    </header>
+
+    <!-- HÉROE / INTRODUCCIÓN -->
+    <section id="introduccion" class="relative bg-gradient-to-br from-slate-900 via-brand-900 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 text-brand-100 text-xs font-semibold mb-4 border border-brand-500/30">
+                    <i class="fa-solid fa-graduation-cap"></i> Liceo La Paz - Módulo Profesional
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+                    Digitalización de los sectores productivos
+                </h1>
+                <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+                    De las revoluciones industriales a la empresa inteligente: sistemas ciberfísicos, convergencia OT/IT y tecnologías habilitadoras.
+                </p>
+                <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700 backdrop-blur text-sm text-slate-300">
+                    <p class="flex items-start gap-3">
+                        <i class="fa-solid fa-circle-info text-amber-400 text-lg mt-0.5"></i>
+                        <span><strong>Nota Didáctica:</strong> Todos los sectores productivos (industria, agricultura, servicios) afrontan el desafío de integrar tecnologías digitales en sus procesos para optimizar la eficiencia, mejorar la productividad y aumentar la sostenibilidad de las empresas, preparándolas para la Cuarta Revolución Industrial.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+        <!-- ALERTA DE RESULTADOS DE BÚSQUEDA -->
+        <div id="searchAlert" class="hidden p-4 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-filter text-amber-600"></i>
+                <span id="searchAlertText" class="text-sm font-medium">Filtro aplicado</span>
+            </div>
+            <button onclick="clearSearch()" class="text-xs font-bold underline hover:text-amber-900">Limpiar búsqueda</button>
+        </div>
+
+        <!-- SECCIÓN 1.1: CRONOLOGÍA DE LAS REVOLUCIONES INDUSTRIALES -->
+        <section id="revoluciones" class="searchable-section bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-lg">
+                    1.1
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Cronología de las Revoluciones Industriales</h2>
+                    <p class="text-sm text-slate-500">Evolución histórica de los avances tecnológicos disruptivos y sus formas de producción.</p>
+                </div>
+            </div>
+
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-8">
+                A lo largo de la historia se han sucedido cuatro grandes revoluciones industriales, cada una marcada por avances tecnológicos disruptivos que transformaron la economía y la sociedad.
+            </p>
+
+            <!-- Cronología Interactivas / Grid de Tarjetas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 1ª Revolución -->
+                <div class="flex flex-col bg-slate-50 border border-slate-200 rounded-xl p-5 hover:border-brand-500 transition shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="w-8 h-8 rounded-full bg-red-600 text-white font-black flex items-center justify-center text-sm">1</span>
+                        <span class="text-xs font-bold text-slate-500 bg-slate-200 px-2.5 py-1 rounded-full">2.ª mitad s. XVIII</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Primera Revolución</h3>
+                    <div class="text-xs uppercase font-semibold text-brand-600 tracking-wider mb-2">Tecnología Clave</div>
+                    <p class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-fire text-amber-600"></i> Máquina de vapor
+                    </p>
+                    <div class="text-xs uppercase font-semibold text-brand-600 tracking-wider mb-1">Rasgo Definitorio</div>
+                    <p class="text-xs text-slate-600 mb-4">Carbón como fuente de energía. Transición de economía agraria y artesanal a fábrica mecanizada.</p>
+                    <div class="mt-auto pt-3 border-t border-slate-200 text-xs text-slate-500">
+                        <strong>Origen:</strong> Gran Bretaña. Impulsó la producción textil y migraciones campo-ciudad.
+                    </div>
+                </div>
+
+                <!-- 2ª Revolución -->
+                <div class="flex flex-col bg-slate-50 border border-slate-200 rounded-xl p-5 hover:border-brand-500 transition shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="w-8 h-8 rounded-full bg-red-600 text-white font-black flex items-center justify-center text-sm">2</span>
+                        <span class="text-xs font-bold text-slate-500 bg-slate-200 px-2.5 py-1 rounded-full">Fin s. XIX - Inicios XX</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Segunda Revolución</h3>
+                    <div class="text-xs uppercase font-semibold text-brand-600 tracking-wider mb-2">Tecnología Clave</div>
+                    <p class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-yellow-500"></i> Electricidad y Petróleo
+                    </p>
+                    <div class="text-xs uppercase font-semibold text-brand-600 tracking-wider mb-1">Rasgo Definitorio</div>
+                    <p class="text-xs text-slate-600 mb-4">Industrialización global y producción en masa en líneas de montaje (cadena de Ford).</p>
+                    <div class="mt-auto pt-3 border-t border-slate-200 text-xs text-slate-500">
+                        <strong>Hitos:</strong> Bombilla eléctrica, motor de combustión, telégrafo/teléfono y automóvil.
+                    </div>
+                </div>
+
+                <!-- 3ª Revolución -->
+                <div class="flex flex-col bg-slate-50 border border-slate-200 rounded-xl p-5 hover:border-brand-500 transition shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="w-8 h-8 rounded-full bg-red-600 text-white font-black flex items-center justify-center text-sm">3</span>
+                        <span class="text-xs font-bold text-slate-500 bg-slate-200 px-2.5 py-1 rounded-full">1950 - 1970 en adelante</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Tercera Revolución</h3>
+                    <div class="text-xs uppercase font-semibold text-brand-600 tracking-wider mb-2">Tecnología Clave</div>
+                    <p class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-microchip text-indigo-600"></i> Electrónica e Informática
+                    </p>
+                    <div class="text-xs uppercase font-semibold text-brand-600 tracking-wider mb-1">Rasgo Definitorio</div>
+                    <p class="text-xs text-slate-600 mb-4">Sociedad de la Información. Automatización programada con PLC, robots e Internet.</p>
+                    <div class="mt-auto pt-3 border-t border-slate-200 text-xs text-slate-500">
+                        <strong>Hitos:</strong> Transistor (1947), circuitos integrados, energía nuclear, CAD/CAM.
+                    </div>
+                </div>
+
+                <!-- 4ª Revolución -->
+                <div class="flex flex-col bg-brand-50 border border-brand-200 rounded-xl p-5 hover:border-brand-500 transition shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="w-8 h-8 rounded-full bg-red-600 text-white font-black flex items-center justify-center text-sm">4</span>
+                        <span class="text-xs font-bold text-brand-700 bg-brand-100 px-2.5 py-1 rounded-full">Primeras décadas s. XXI</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-brand-900 mb-2">Cuarta Revolución</h3>
+                    <div class="text-xs uppercase font-semibold text-brand-600 tracking-wider mb-2">Tecnología Clave</div>
+                    <p class="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-network-wired text-brand-600"></i> IoT, IA, Big Data, Nube
+                    </p>
+                    <div class="text-xs uppercase font-semibold text-brand-600 tracking-wider mb-1">Rasgo Definitorio</div>
+                    <p class="text-xs text-slate-700 mb-4">Digitalización integral. Fábricas y empresas inteligentes interconectadas en tiempo real.</p>
+                    <div class="mt-auto pt-3 border-t border-brand-200 text-xs text-brand-800 font-medium">
+                        <strong>Objetivo:</strong> Personalización masiva, optimización de operaciones y sostenibilidad.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 1.2: CUARTA REVOLUCIÓN INDUSTRIAL Y DIGITALIZACIÓN -->
+        <section id="industria40" class="searchable-section bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-8">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-lg">
+                    1.2
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Cuarta Revolución Industrial y Digitalización</h2>
+                    <p class="text-sm text-slate-500">Elementos definitorios y transformación cultural de las organizaciones.</p>
+                </div>
+            </div>
+
+            <!-- Conceptos Origen -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fa-solid fa-industry text-brand-600 text-xl"></i>
+                        <h3 class="font-bold text-slate-900">Origen del término "Industria 4.0"</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed mb-3">
+                        Presentado en <strong>abril de 2011 en la Feria de Hannover</strong> dentro de una iniciativa de política industrial del gobierno alemán promovida por Henning Kagermann, Wolf-Dieter Lukas y Wolfgang Wahlster (grupo de trabajo que publicó recomendaciones en 2013).
+                    </p>
+                    <span class="inline-block px-2.5 py-1 bg-brand-100 text-brand-800 text-xs rounded-md font-semibold">Nombra la transformación de la FÁBRICA</span>
+                </div>
+
+                <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fa-solid fa-earth-americas text-emerald-600 text-xl"></i>
+                        <h3 class="font-bold text-slate-900">Cuarta Revolución Industrial</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed mb-3">
+                        Término popularizado a partir de 2016 por <strong>Klaus Schwab</strong>, fundador del Foro Económico Mundial. Difumina las fronteras entre el mundo físico, digital y biológico.
+                    </p>
+                    <span class="inline-block px-2.5 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-md font-semibold">Nombra la transformación del CONJUNTO de la economía y sociedad</span>
+                </div>
+            </div>
+
+            <!-- Tres Elementos Definitorios -->
+            <div class="bg-slate-900 text-white p-6 rounded-xl">
+                <h3 class="text-lg font-bold mb-4 text-center sm:text-left flex items-center gap-2">
+                    <i class="fa-solid fa-cubes text-brand-500"></i> Tres Elementos Definitorios de la Digitalización
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4 rounded-lg bg-slate-800 border border-slate-700">
+                        <div class="text-brand-400 text-lg font-bold mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-wifi"></i> 1. Conectividad Ubicua
+                        </div>
+                        <p class="text-xs text-slate-300">Máquinas, productos y personas se comunican continuamente entre sí a través del Internet de las Cosas (IoT).</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-slate-800 border border-slate-700">
+                        <div class="text-brand-400 text-lg font-bold mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-brain"></i> 2. Automatización Inteligente
+                        </div>
+                        <p class="text-xs text-slate-300">Uso de IA, robótica colaborativa y aprendizaje automático para tomar decisiones autónomas o asistir operarios.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-slate-800 border border-slate-700">
+                        <div class="text-brand-400 text-lg font-bold mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-database"></i> 3. Uso Intensivo de Datos
+                        </div>
+                        <p class="text-xs text-slate-300">Captura y análisis de Big Data en tiempo real para optimizar procesos, reducir errores y personalizar productos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.2.1 Transformación de las organizaciones -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-bold text-slate-900">1.2.1 Transformación de las Organizaciones</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    La adopción de la Industria 4.0 no consiste en incorporar software aislado, sino en reestructurar procesos, estrategias y la cultura empresarial. Implica la integración de sistemas ERP transversales y un enfoque rotundo en la toma de decisiones basada en datos objetivos en lugar de la mera intuición.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="p-4 border border-slate-200 rounded-lg bg-slate-50">
+                        <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider mb-2">Nuevos Perfiles</h4>
+                        <p class="text-xs text-slate-600">Científicos de datos, analistas de Big Data y especialistas en transformación digital.</p>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-lg bg-slate-50">
+                        <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider mb-2">Liderazgo Digital</h4>
+                        <p class="text-xs text-slate-600">Aparición del <em>Chief Digital Officer</em> (CDO) para romper barreras departamentales.</p>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-lg bg-slate-50">
+                        <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider mb-2">Gestión del Cambio</h4>
+                        <p class="text-xs text-slate-600">Superar la resistencia al cambio ofreciendo capacitación continua y estructuras más horizontales.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 1.3: SISTEMAS CIBERFÍSICOS (CPS) -->
+        <section id="cps" class="searchable-section bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-8">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-lg">
+                    1.3
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Sistemas Ciberfísicos (CPS)</h2>
+                    <p class="text-sm text-slate-500">Integración estrecha entre componentes físicos y digitales cerrando bucles de retroalimentación.</p>
+                </div>
+            </div>
+
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Un <strong>Sistema Ciberfísico (CPS)</strong> se refiere a mecanismos donde dispositivos informáticos y redes monitorizan y controlan procesos físicos mediante un bucle de retroalimentación en tiempo real. Según la <em>National Science Foundation</em>, superan a los sistemas embebidos tradicionales en capacidad, adaptabilidad, resiliencia y seguridad.
+            </p>
+
+            <!-- DIAGRAMA INTERACTIVO DEL BUCLE DE RETROALIMENTACIÓN -->
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <h3 class="text-base font-bold text-slate-900 mb-6 text-center">
+                    <i class="fa-solid fa-arrows-spin text-brand-600"></i> Diagrama Interactivo del Bucle de Retroalimentación de un CPS
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+                    <!-- Paso 1 -->
+                    <div class="p-4 rounded-xl bg-white border border-slate-300 shadow-sm hover:border-brand-500 transition text-center cursor-pointer" onclick="showCpsStep(1)">
+                        <div class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center mx-auto mb-2">1</div>
+                        <div class="font-bold text-slate-800 text-sm mb-1">Mundo Físico</div>
+                        <p class="text-xs text-slate-500">Proceso físico: Máquina, línea de producción o entorno.</p>
+                    </div>
+
+                    <!-- Paso 2 -->
+                    <div class="p-4 rounded-xl bg-white border border-slate-300 shadow-sm hover:border-brand-500 transition text-center cursor-pointer" onclick="showCpsStep(2)">
+                        <div class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center mx-auto mb-2">2</div>
+                        <div class="font-bold text-slate-800 text-sm mb-1">Captura y Red</div>
+                        <p class="text-xs text-slate-500">Sensores (temperatura, presión) envían datos por red local o Internet.</p>
+                    </div>
+
+                    <!-- Paso 3 -->
+                    <div class="p-4 rounded-xl bg-white border border-slate-300 shadow-sm hover:border-brand-500 transition text-center cursor-pointer" onclick="showCpsStep(3)">
+                        <div class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center mx-auto mb-2">3</div>
+                        <div class="font-bold text-slate-800 text-sm mb-1">Análisis y Decisión</div>
+                        <p class="text-xs text-slate-500">Mundo Digital: Algoritmos informáticos en nube u ordenador procesan el dato.</p>
+                    </div>
+
+                    <!-- Paso 4 -->
+                    <div class="p-4 rounded-xl bg-white border border-slate-300 shadow-sm hover:border-brand-500 transition text-center cursor-pointer" onclick="showCpsStep(4)">
+                        <div class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center mx-auto mb-2">4</div>
+                        <div class="font-bold text-slate-800 text-sm mb-1">Acción Física</div>
+                        <p class="text-xs text-slate-500">Actuadores ejecutan órdenes (ajustan motor, emiten alerta) modificando el proceso.</p>
+                    </div>
+                </div>
+
+                <!-- Detalle del paso seleccionado -->
+                <div id="cpsStepDetail" class="mt-6 p-4 rounded-xl bg-brand-50 border border-brand-200 text-xs sm:text-sm text-brand-900">
+                    <span class="font-bold">Ciclo Continuo:</span> Haz clic en cualquiera de las 4 fases superiores para entender cómo el sistema se ajusta y aprende sin intervención humana directa.
+                </div>
+            </div>
+
+            <!-- Tabla 1. Aplicaciones por Ámbito -->
+            <div>
+                <h3 class="text-lg font-bold text-slate-900 mb-4">Tabla 1: Aplicaciones de los Sistemas Ciberfísicos por Ámbito</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-800 uppercase font-bold border-b border-slate-200">
+                                <th class="p-3">Ámbito</th>
+                                <th class="p-3">Función del CPS</th>
+                                <th class="p-3">Ejemplos Representativos</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Manufactura inteligente</td>
+                                <td class="p-3 text-slate-600">Controla procesos en fábrica, diagnósticos predictivos y reducción de tiempos muertos.</td>
+                                <td class="p-3 text-slate-600">Calibración en tiempo real de robots de soldadura automotriz; control de consumo energético por máquina.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Vehículos autónomos y drones</td>
+                                <td class="p-3 text-slate-600">Combina desplazamiento físico con inteligencia digital (piloto automático, GPS, estabilización).</td>
+                                <td class="p-3 text-slate-600">Coches autodirigidos con LiDAR/radar; drones agrícolas para evaluación visual de cultivos.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Hogares y Ciudades Inteligentes</td>
+                                <td class="p-3 text-slate-600">Sensores que optimizan confort y consumo. Plataformas urbanas integradas.</td>
+                                <td class="p-3 text-slate-600">Termostatos conectados; semáforos adaptativos, redes eléctricas inteligentes (smart grids), cámaras con analítica.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Salud y biomedicina</td>
+                                <td class="p-3 text-slate-600">Dispositivos médicos que miden variables en tiempo real y actúan automáticamente.</td>
+                                <td class="p-3 text-slate-600">Bombas de insulina según nivel de glucosa; monitores UCI; prótesis biónicas; dispensación hospitalaria robotizada.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Agroindustria</td>
+                                <td class="p-3 text-slate-600">Agricultura de precisión: sensores deciden riego y fertilización exacta.</td>
+                                <td class="p-3 text-slate-600">Sensores de humedad del suelo; aplicación quirúrgica de agroquímicos con drones; tractores autónomos GPS.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Advertencias de Ciberseguridad -->
+            <div class="p-5 rounded-xl bg-red-50 border border-red-200 space-y-3">
+                <div class="flex items-center gap-2 text-red-800 font-bold text-base">
+                    <i class="fa-solid fa-triangle-exclamation"></i> 1.3.2 Advertencias sobre Seguridad Ciberfísica y Funcional
+                </div>
+                <p class="text-xs sm:text-sm text-red-950 leading-relaxed">
+                    Conectar infraestructura física a redes expande la superficie de ataque. Un ataque informático en OT no solo vulnera datos, sino que puede causar daños físicos o accidentes a personas.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                    <div class="bg-white p-3 rounded-lg border border-red-200 text-xs text-slate-700">
+                        <strong class="text-red-700 block mb-1">Ciberseguridad (Ejemplo Stuxnet - 2010):</strong>
+                        Virus diseñado para sabotear autómata de plantas industriales alterando centrifugadoras. Exige cifrado, autenticación y segmentación de red.
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-red-200 text-xs text-slate-700">
+                        <strong class="text-red-700 block mb-1">Seguridad Funcional:</strong>
+                        Un fallo en el código no debe poner en peligro vidas humanas. Normas internacionales estrictas: <strong>ISO 26262</strong> en automoción e <strong>IEC 61508</strong> en industria.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 1.4: ESTRUCTURA DE LA EMPRESA Y UNIDADES FUNCIONALES -->
+        <section id="empresa" class="searchable-section bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-8">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-lg">
+                    1.4
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Estructura de la Empresa y Unidades Funcionales</h2>
+                    <p class="text-sm text-slate-500">Ruptura de los silos departamentales a través de plataformas unificadas (ERP).</p>
+                </div>
+            </div>
+
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                En la empresa tradicional, los departamentos trabajaban aislados mediante datos lentos en papel. Con la digitalización, un software <strong>ERP (Enterprise Resource Planning)</strong> conecta la información de inventario, ventas y producción en tiempo real, permitiendo una gestión transversal.
+            </p>
+
+            <!-- Pestañas Interactivas por Departamento (Tabla 2) -->
+            <div>
+                <h3 class="text-lg font-bold text-slate-900 mb-4">Digitalización por Departamentos (Tabla 2 del Temario)</h3>
+                <div class="flex space-x-2 border-b border-slate-200 overflow-x-auto hide-scrollbar pb-1 mb-6" id="deptTabs">
+                    <button onclick="switchDept('prod')" id="tab-prod" class="px-4 py-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-brand-600 tab-active whitespace-nowrap">Producción & Mant.</button>
+                    <button onclick="switchDept('log')" id="tab-log" class="px-4 py-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-brand-600 whitespace-nowrap">Logística</button>
+                    <button onclick="switchDept('mkt')" id="tab-mkt" class="px-4 py-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-brand-600 whitespace-nowrap">Marketing & Ventas</button>
+                    <button onclick="switchDept('fin')" id="tab-fin" class="px-4 py-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-brand-600 whitespace-nowrap">Finanzas</button>
+                    <button onclick="switchDept('rrhh')" id="tab-rrhh" class="px-4 py-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-brand-600 whitespace-nowrap">RR. HH.</button>
+                    <button onclick="switchDept('idi')" id="tab-idi" class="px-4 py-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-brand-600 whitespace-nowrap">I+D+i</button>
+                </div>
+
+                <!-- Paneles Dep. -->
+                <div id="deptContent" class="p-6 rounded-xl bg-slate-50 border border-slate-200">
+                    <!-- Dinámico vía JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 1.5: CONVERGENCIA OT e IT -->
+        <section id="convergencia" class="searchable-section bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-8">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-lg">
+                    1.5
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Convergencia entre Entornos OT e IT</h2>
+                    <p class="text-sm text-slate-500">Unión de Operational Technology (planta) e Information Technology (gestión).</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4">
+                    <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+                        Históricamente, <strong>OT (Tecnología de Operación)</strong> y <strong>IT (Tecnología de la Información)</strong> funcionaban de forma estanca. La Industria 4.0 elimina esta barrera creando una <strong>plataforma común de datos</strong>.
+                    </p>
+                    <div class="p-4 rounded-xl bg-brand-50 border border-brand-200 text-xs sm:text-sm text-brand-900">
+                        <strong class="block text-brand-700 mb-1 font-bold">Nuevos Perfiles Interdisciplinares:</strong>
+                        Surgen roles como <em>Ingeniero de Automatización y Datos</em> o <em>Arquitecto de Soluciones Industriales</em>, capaces de dominar tanto autómatas programables (PLC) como redes de datos corporativas.
+                    </div>
+                </div>
+
+                <!-- PIRÁMIDE INDUSTRIAL IT/OT -->
+                <div class="bg-slate-900 p-6 rounded-2xl text-white space-y-3">
+                    <h3 class="text-center font-bold text-sm text-brand-400 uppercase tracking-widest mb-4">Figura 3: Capas de la Empresa Industrial</h3>
+                    
+                    <!-- Capas IT -->
+                    <div class="p-3 bg-indigo-900/80 border border-indigo-700 rounded-lg text-center">
+                        <div class="text-xs font-bold uppercase text-indigo-300">Gestión Empresarial (IT)</div>
+                        <div class="text-xs text-indigo-100">ERP, CRM, Bases de datos corporativas, Servidores</div>
+                    </div>
+                    <div class="p-3 bg-indigo-800/70 border border-indigo-600 rounded-lg text-center">
+                        <div class="text-xs font-bold uppercase text-indigo-300">Gestión de Operaciones (IT)</div>
+                        <div class="text-xs text-indigo-100">MES, Planificación detallada de producción</div>
+                    </div>
+
+                    <!-- Línea de Convergencia -->
+                    <div class="py-1 text-center font-bold text-xs text-amber-400 tracking-widest border-y border-dashed border-amber-400">
+                        --- CONVERGENCIA IT/OT - PLATAFORMA COMÚN DE DATOS ---
+                    </div>
+
+                    <!-- Capas OT -->
+                    <div class="p-3 bg-slate-800 border border-slate-700 rounded-lg text-center">
+                        <div class="text-xs font-bold uppercase text-slate-400">Supervisión (OT)</div>
+                        <div class="text-xs text-slate-300">Sistemas SCADA</div>
+                    </div>
+                    <div class="p-3 bg-slate-800/80 border border-slate-700 rounded-lg text-center">
+                        <div class="text-xs font-bold uppercase text-slate-400">Control (OT)</div>
+                        <div class="text-xs text-slate-300">Autómatas programables (PLC) y protocolos industriales</div>
+                    </div>
+                    <div class="p-3 bg-slate-800/60 border border-slate-700 rounded-lg text-center">
+                        <div class="text-xs font-bold uppercase text-slate-400">Nivel de Campo (OT)</div>
+                        <div class="text-xs text-slate-300">Redes de sensores industriales y actuadores</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla 3: Beneficios IT/OT -->
+            <div>
+                <h3 class="text-lg font-bold text-slate-900 mb-4">Tabla 3: Beneficios Operativos y Estratégicos de la Convergencia</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
+                        <h4 class="font-bold text-brand-700 text-sm mb-1">Mantenimiento Predictivo</h4>
+                        <p class="text-xs text-slate-600">Sensórica OT procesada con algoritmos IT anticipa averías. <em>Ejemplo: vibración anómala dispara orden de reparación antes del fallo.</em></p>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
+                        <h4 class="font-bold text-brand-700 text-sm mb-1">Optimización & Just-In-Time</h4>
+                        <p class="text-xs text-slate-600">Sincronización total entre pedidos en ERP y la línea física. <em>Ejemplo: ERP ajusta el programa de planta según disponibilidad de materia prima.</em></p>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
+                        <h4 class="font-bold text-brand-700 text-sm mb-1">Mayor Calidad y Trazabilidad</h4>
+                        <p class="text-xs text-slate-600">Registro de parámetros de fabricación asociados al número de serie de cada lote para correcciones inmediatas.</p>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
+                        <h4 class="font-bold text-brand-700 text-sm mb-1">Sostenibilidad Energética</h4>
+                        <p class="text-xs text-slate-600">Conectar la gestión de energía en planta con analítica TI para apagar equipos en standby o desplazar producción a tarifas reducidas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 1.6: TECNOLOGÍAS HABILITADORAS, EDGE/CLOUD Y ODS -->
+        <section id="tecnologias" class="searchable-section bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-10">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-lg">
+                    1.6
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Tecnologías Habilitadoras y Sostenibilidad</h2>
+                    <p class="text-sm text-slate-500">Herramientas digitales integradas, arquitecturas de cómputo y relación con los ODS.</p>
+                </div>
+            </div>
+
+            <!-- Tabla 5: Tecnologías Habilitadoras -->
+            <div>
+                <h3 class="text-lg font-bold text-slate-900 mb-4">Tabla 5: Tecnologías Habilitadoras de la Digitalización Industrial</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition">
+                        <div class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-wifi text-brand-600"></i> IoT (Internet de las Cosas)
+                        </div>
+                        <p class="text-xs text-slate-600">Red de sensores inteligentes que recopilan datos en tiempo real de ubicación, temperatura o consumo.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition">
+                        <div class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-robot text-purple-600"></i> IA y Machine Learning
+                        </div>
+                        <p class="text-xs text-slate-600">Patrones ocultos en datos. Habilita visión artificial para calidad, mantenimiento predictivo y cobots.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition">
+                        <div class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-server text-emerald-600"></i> Big Data y Analítica
+                        </div>
+                        <p class="text-xs text-slate-600">Ecosistemas Hadoop/Spark y bases NoSQL para convertir volúmenes masivos en conocimiento accionable.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition">
+                        <div class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-cloud text-sky-600"></i> Cloud Computing
+                        </div>
+                        <p class="text-xs text-slate-600">Almacenamiento y computación remota ilimitada. Soporta software SaaS ERP/CRM y gemelos digitales.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition">
+                        <div class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-microchip text-amber-600"></i> Edge Computing
+                        </div>
+                        <p class="text-xs text-slate-600">Procesamiento local ultra-rápido in situ (milisegundos) crucial para control crítico sin dependencia de red.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition">
+                        <div class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-hands-holding-circle text-rose-600"></i> Robótica Avanzada & Cobots
+                        </div>
+                        <p class="text-xs text-slate-600">Robots colaborativos que trabajan seguros junto a humanos, AGV autónomos y drones industriales.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition">
+                        <div class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-vr-cardboard text-indigo-600"></i> Realidad Aumentada/Virtual
+                        </div>
+                        <p class="text-xs text-slate-600">RA para instrucciones guiadas en mantenimientos complejos; RV para simulaciones sin riesgo.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition">
+                        <div class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-cube text-teal-600"></i> Impresión 3D (Aditiva)
+                        </div>
+                        <p class="text-xs text-slate-600">Prototipado rápido y fabricación bajo demanda de repuestos personalizados con polímeros y metales.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition">
+                        <div class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-link text-blue-600"></i> Blockchain
+                        </div>
+                        <p class="text-xs text-slate-600">Registro inmutable de transacciones para garantizar la trazabilidad estricta en alimentaria y farmacia.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.6.2 Comparativa Cloud vs Edge -->
+            <div class="space-y-6">
+                <h3 class="text-lg font-bold text-slate-900">1.6.2 Comparativa: Cloud Computing vs. Edge Computing</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-800 uppercase font-bold border-b border-slate-200">
+                                <th class="p-3">Criterio</th>
+                                <th class="p-3 text-sky-700">Computación en la Nube (Cloud)</th>
+                                <th class="p-3 text-amber-700">Computación Perimetral (Edge)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr>
+                                <td class="p-3 font-bold">Dónde se procesa</td>
+                                <td class="p-3 text-slate-600">Servidores remotos en centros de datos vía Internet.</td>
+                                <td class="p-3 text-slate-600">Dispositivos locales o gateways en la propia planta.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold">Capacidad</td>
+                                <td class="p-3 text-slate-600">Prácticamente ilimitada bajo demanda.</td>
+                                <td class="p-3 text-slate-600">Limitada al equipo instalado in situ.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold">Latencia</td>
+                                <td class="p-3 text-slate-600">Depende de conexión (retardos de segundos/minutos).</td>
+                                <td class="p-3 text-slate-600">Muy baja (milisegundos en tiempo real).</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold">Sin conexión</td>
+                                <td class="p-3 text-slate-600">Inoperable si se pierde la red.</td>
+                                <td class="p-3 text-slate-600">La operación continúa con total normalidad.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold">Uso típico</td>
+                                <td class="p-3 text-slate-600">Entrenamiento de modelos IA pesados y cuadros corporativos.</td>
+                                <td class="p-3 text-slate-600">Control de calidad con visión artificial y frenado de cobots.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 1.6.3 ODS y Doble Transición Verde y Digital -->
+            <div class="p-6 bg-slate-900 text-white rounded-2xl space-y-4">
+                <h3 class="text-lg font-bold text-emerald-400 flex items-center gap-2">
+                    <i class="fa-solid fa-leaf"></i> 1.6.3 Empresas Sostenibles: Tecnologías y ODS (Agenda 2030)
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    La Unión Europea promueve el concepto de <strong>"Doble Transición: Digital y Verde"</strong>. La digitalización permite medir la huella ambiental con precisión e impulsar la economía circular.
+                </p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                    <div class="p-4 rounded-xl bg-slate-800 border border-slate-700">
+                        <div class="text-xs font-bold text-amber-400 mb-1">ODS 4: Educación</div>
+                        <p class="text-xs text-slate-300">Capacitación digital continua para nuevas habilidades y empleabilidad.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-800 border border-slate-700">
+                        <div class="text-xs font-bold text-amber-400 mb-1">ODS 8: Trabajo Decente</div>
+                        <p class="text-xs text-slate-300">Robots asumen operaciones peligrosas o insalubres reduciendo accidentes.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-red-900/40 border border-red-500">
+                        <div class="text-xs font-bold text-red-400 mb-1 flex items-center gap-1">
+                            <i class="fa-solid fa-star text-xs"></i> ODS 9 (VÍNCULO PRINCIPAL)
+                        </div>
+                        <p class="text-xs text-slate-200 font-medium">Industria, Innovación e Infraestructura: industrialización limpia e inclusiva.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-800 border border-slate-700">
+                        <div class="text-xs font-bold text-amber-400 mb-1">ODS 12: Consumo Resp.</div>
+                        <p class="text-xs text-slate-300">Transparencia en la cadena de suministro y verificación de insumos sostenibles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: CASOS PRÁCTICOS -->
+        <section id="casos" class="searchable-section bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-lg">
+                    2
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Casos Prácticos y Ejemplos Reales</h2>
+                    <p class="text-sm text-slate-500">Evidencias reales de la transformación digital aplicada en la industria y el sector primario.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- CASO 1: SIEMENS ALEMANIA -->
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-100 px-3 py-1 rounded-full">Caso 1: Alemania</span>
+                        <i class="fa-solid fa-microchip text-slate-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Siemens Electronic Works Amberg</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        Referente mundial de Industria 4.0. Fabrica autómatas PLC Simatic con un nivel de automatización superior al <strong>75%</strong> y controlada por 2.800 controladores inteligentes.
+                    </p>
+                    <div class="space-y-2 text-xs text-slate-700 bg-white p-4 rounded-xl border border-slate-200">
+                        <p><strong>Nivel de Calidad:</strong> 99,999% (solo 1 defecto por millón de piezas).</p>
+                        <p><strong>Flexibilidad:</strong> Cambio de modelo en minutos sin detener la línea.</p>
+                        <p><strong>Eficiencia:</strong> Mantenimiento predictivo con gemelos digitales y 30% menos consumo de energía.</p>
+                    </div>
+                </div>
+
+                <!-- CASO 2: VIÑEDOS ARAGÓN -->
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">Caso 2: España</span>
+                        <i class="fa-solid fa-wine-glass text-slate-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Agricultura Inteligente en Viñedos de Aragón</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        Despliegue de red de sensores IoT inalámbricos que miden humedad del suelo, radiación, temperatura y salud de las hojas mediante sensores ópticos.
+                    </p>
+                    <div class="space-y-2 text-xs text-slate-700 bg-white p-4 rounded-xl border border-slate-200">
+                        <p><strong>Ahorro Hídrico:</strong> Reducción del 25% en consumo de agua con riego inteligente.</p>
+                        <p><strong>Fitosanitarios:</strong> Aplicación quirúrgica solo en zonas necesarias.</p>
+                        <p><strong>Trazabilidad:</strong> Registro de las condiciones exactas en las que creció cada parcela.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: EVALUACIÓN Y CUESTIONARIO INTERACTIVO -->
+        <section id="evaluacion" class="searchable-section bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-8">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Cuestionario de Autoevaluación</h2>
+                        <p class="text-sm text-slate-500">10 preguntas tipo test para comprobar tu aprendizaje.</p>
+                    </div>
+                </div>
+                <div id="quizScore" class="hidden text-sm font-bold bg-brand-100 text-brand-800 px-4 py-2 rounded-xl">
+                    Puntuación: 0 / 10
+                </div>
+            </div>
+
+            <form id="quizForm" class="space-y-8">
+                <!-- Preguntas renderizadas por JS -->
+            </form>
+
+            <div class="flex gap-4 pt-4 border-t border-slate-200">
+                <button type="button" onclick="evaluateQuiz()" class="px-6 py-3 bg-brand-600 text-white rounded-xl font-bold text-sm hover:bg-brand-700 transition shadow">
+                    Comprobar Respuestas
+                </button>
+                <button type="button" onclick="resetQuiz()" class="px-6 py-3 bg-slate-200 text-slate-700 rounded-xl font-bold text-sm hover:bg-slate-300 transition">
+                    Reiniciar Test
+                </button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: REFERENCIAS Y ENLACES EXTERNOS -->
+        <section id="referencias" class="searchable-section bg-slate-900 text-white p-6 sm:p-8 rounded-2xl space-y-6">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-link text-brand-400 text-2xl"></i>
+                <h2 class="text-2xl font-bold">3. Referencias y Enlaces Externos</h2>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-400">
+                Fuentes documentales consultadas en el desarrollo de la unidad didáctica (2024-2025):
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <a href="https://www.repsol.com/es/energia-futuro/tecnologia-innovacion/cuarta-revolucion-industrial/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl bg-slate-800 border border-slate-700 hover:border-brand-500 transition block">
+                    <strong class="text-brand-300 text-sm block mb-1">Repsol - Cuarta Revolución Industrial</strong>
+                    <span>Divulgación sobre IoT, IA y Big Data en la Industria 4.0.</span>
+                </a>
+                <a href="https://www.unir.net/revista/ingenieria/sistemas-ciberfisicos/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl bg-slate-800 border border-slate-700 hover:border-brand-500 transition block">
+                    <strong class="text-brand-300 text-sm block mb-1">UNIR - ¿Qué son los Sistemas Ciberfísicos?</strong>
+                    <span>Fundamentos e integración entre el mundo físico y digital.</span>
+                </a>
+                <a href="https://www.advancedfactories.com/beneficios-retos-convergencia-it-ot-industria/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl bg-slate-800 border border-slate-700 hover:border-brand-500 transition block">
+                    <strong class="text-brand-300 text-sm block mb-1">Advanced Factories - Convergencia IT/OT</strong>
+                    <span>Beneficios y desafíos operativos en entornos de fábrica.</span>
+                </a>
+                <a href="https://en.acatech.de/publication/recommendations-for-implementing-the-strategic-initiative-industrie-4-0-final-report-of-the-industrie-4-0-working-group/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl bg-slate-800 border border-slate-700 hover:border-brand-500 transition block">
+                    <strong class="text-brand-300 text-sm block mb-1">acatech - Recommendations for Industrie 4.0 (2013)</strong>
+                    <span>Documento fundacional original del concepto de Industria 4.0 en Alemania.</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-slate-950 border-t border-slate-800 text-slate-500 py-8 mt-12 text-center text-xs">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-semibold text-slate-400 mb-1">Liceo La Paz - Módulo de Digitalización de los Sectores Productivos</p>
+            <p>Unidad Didáctica 1. Generado como sitio interactivo de aprendizaje autónomo.</p>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        // Datos de Departamentos (Tabla 2)
+        const deptData = {
+            prod: {
+                title: "Producción & Mantenimiento",
+                desc: "Núcleo industrial. Pasa de un enfoque reactivo a proactivo en fábricas inteligentes.",
+                tech: "Sistemas MES (Manufacturing Execution Systems), SCADA, robots colaborativos (cobots), sensores IoT de vibración/temperatura para mantenimiento predictivo y Realidad Aumentada."
+            },
+            log: {
+                title: "Logística y Cadena de Suministro",
+                desc: "Trazabilidad total de materiales, coordinación de inventarios en tiempo real con proveedores y entregas just-in-time.",
+                tech: "Etiquetas RFID, código de barras, almacén inteligente automatizado, vehículos autónomos (AGV) y sensores IoT GPS con control térmico."
+            },
+            mkt: {
+                title: "Marketing y Ventas",
+                desc: "Permite llegar a más público, medir efectividad de campañas con exactitud y personalizar la oferta.",
+                tech: "CRM (Customer Relationship Management), analítica web, e-commerce sincronizado con stock, email marketing automatizado y segmentación Big Data."
+            },
+            fin: {
+                title: "Finanzas y Administración",
+                desc: "Automatización de asientos contables, conciliación bancaria sin papel y cuadros de mando (KPI) financieros en tiempo real.",
+                tech: "Sistemas ERP contables, Facturación Electrónica obligatoria, firma digital y herramientas de Business Intelligence."
+            },
+            rrhh: {
+                title: "Recursos Humanos",
+                desc: "Gestión estratégica del capital humano, formación inmersiva y medición objetiva del desempeño.",
+                tech: "Plataformas de e-learning con simuladores RV, portales del empleado, software de feedback u OKRs y People Analytics."
+            },
+            idi: {
+                title: "Investigación, Desarrollo e Innovación (I+D+i)",
+                desc: "Diseñar y probar virtualmente productos antes de su fabricación física coordinando equipos multidisciplinares.",
+                tech: "Software CAD/CAE de simulación, Gemelos Digitales (Digital Twins) y plataformas colaborativas Kanban digital."
+            }
+        };
+
+        // Renderizar pestaña de Departamento inicial
+        function switchDept(deptKey) {
+            const tabs = document.querySelectorAll('#deptTabs button');
+            tabs.forEach(tab => tab.classList.remove('tab-active'));
+            document.getElementById(`tab-${deptKey}`).classList.add('tab-active');
+
+            const data = deptData[deptKey];
+            document.getElementById('deptContent').innerHTML = `
+                <h4 class="text-lg font-bold text-slate-900 mb-2">${data.title}</h4>
+                <p class="text-sm text-slate-600 mb-4 leading-relaxed">${data.desc}</p>
+                <div class="p-3 bg-white rounded-lg border border-slate-200 text-xs">
+                    <strong class="text-brand-700 block mb-1">Tecnologías y Ejemplos de Aplicación:</strong>
+                    <span class="text-slate-700">${data.tech}</span>
+                </div>
+            `;
+        }
+
+        // Mostrar detalles del paso CPS
+        function showCpsStep(step) {
+            const detailBox = document.getElementById('cpsStepDetail');
+            const stepsText = {
+                1: "<strong>1. Proceso Físico:</strong> Ocurre en la planta (ej. temperatura de un motor o velocidad de una línea de ensamblaje).",
+                2: "<strong>2. Captura y Red:</strong> Sensores miden el estado físico y transmiten los datos a través de Ethernet o redes inalámbricas IoT.",
+                3: "<strong>3. Análisis y Decisión (Mundo Digital):</strong> Software o algoritmos de IA en la nube o PC industrial evalúan los datos contra consignas de calidad.",
+                4: "<strong>4. Acción Física:</strong> Los actuadores reciben la orden digital y modifican la realidad (cerrar una válvula, detener un brazo robot o emitir una alarma)."
+            };
+            detailBox.innerHTML = stepsText[step];
+        }
+
+        // Preguntas del cuestionario (Evaluación oficial del temario)
+        const quizQuestions = [
+            {
+                id: 1,
+                q: "1. ¿Qué invento o fuente de energía caracterizó fundamentalmente a la Primera Revolución Industrial?",
+                options: [
+                    "a. La electricidad y el motor de combustión interna.",
+                    "b. La máquina de vapor y el uso del carbón.",
+                    "c. Los ordenadores y la automatización programable.",
+                    "d. Internet y la robótica avanzada."
+                ],
+                correct: 1,
+                exp: "Respuesta correcta: b. Impulsada por la máquina de vapor y el carbón como fuente energética."
+            },
+            {
+                id: 2,
+                q: "2. ¿Cuál de los siguientes describe mejor un cambio introducido por la Segunda Revolución Industrial?",
+                options: [
+                    "a. La producción en masa en cadenas de montaje gracias a la electricidad.",
+                    "b. La introducción de la tracción animal en las tareas agrarias.",
+                    "c. La fabricación artesanal personalizada mediante máquinas de vapor.",
+                    "d. La digitalización de la información en las fábricas."
+                ],
+                correct: 0,
+                exp: "Respuesta correcta: a. Surgió la producción en serie con líneas de montaje (cadena de Ford) y electricidad."
+            },
+            {
+                id: 3,
+                q: "3. Identifica la innovación propia de la Tercera Revolución Industrial:",
+                options: [
+                    "a. Redes de comunicaciones globales e informática personal.",
+                    "b. Motores de vapor para impulsar fábricas textiles.",
+                    "c. Robots autónomos colaborativos e inteligencia artificial.",
+                    "d. Teléfonos y telégrafos operados manualmente."
+                ],
+                correct: 0,
+                exp: "Respuesta correcta: a. Incorporación de la electrónica, los transistores (1947), ordenadores e Internet."
+            },
+            {
+                id: 4,
+                q: "4. El término «Industria 4.0» se refiere a una fábrica o empresa...",
+                options: [
+                    "a. Donde la producción se realiza principalmente de forma manual.",
+                    "b. Que integra tecnologías digitales avanzadas, conectando máquinas, sistemas y personas en tiempo real.",
+                    "c. Que utiliza exclusivamente máquinas de la década de 1940.",
+                    "d. Donde no existe comunicación entre el área de producción y el área de gestión."
+                ],
+                correct: 1,
+                exp: "Respuesta correcta: b. Digitalización integral interconectando cibernéticamente todos los activos."
+            },
+            {
+                id: 5,
+                q: "5. ¿Cuál de estas opciones es un ejemplo de sistema ciberfísico (CPS)?",
+                options: [
+                    "a. Un operario manejando una máquina herramienta manual.",
+                    "b. Un termostato doméstico tradicional de rueda.",
+                    "c. Un coche autónomo equipado con sensores LIDAR y software de navegación.",
+                    "d. Una bicicleta estática mecánica sin ningún componente electrónico."
+                ],
+                correct: 2,
+                exp: "Respuesta correcta: c. Un coche autónomo integra sensórica física con algoritmos de decisión en tiempo real."
+            },
+            {
+                id: 6,
+                q: "6. En la convergencia de entornos IT y OT, ¿cuál es uno de sus principales beneficios para una empresa industrial?",
+                options: [
+                    "a. Aumentar la separación entre los departamentos de informática y producción.",
+                    "b. Poder predecir fallos de maquinaria analizando datos de sensores en tiempo real.",
+                    "c. Garantizar que los sistemas antiguos nunca se conecten a redes modernas.",
+                    "d. Eliminar la necesidad de ciberseguridad en la planta industrial."
+                ],
+                correct: 1,
+                exp: "Respuesta correcta: b. Unir planta (OT) con TI habilita herramientas de analítica y mantenimiento predictivo."
+            },
+            {
+                id: 7,
+                q: "7. ¿Qué ventaja NO es típica de una empresa que ha digitalizado por completo sus procesos?",
+                options: [
+                    "a. Mayor eficiencia operativa y reducción de errores.",
+                    "b. Mejora en la toma de decisiones gracias a datos en tiempo real.",
+                    "c. Incremento significativo de tiempos muertos por paradas no planificadas.",
+                    "d. Disminución del uso de papel y optimización de recursos materiales."
+                ],
+                correct: 2,
+                exp: "Respuesta correcta: c. La digitalización reduce los tiempos muertos, por lo que su incremento NO es una ventaja."
+            },
+            {
+                id: 8,
+                q: "8. ¿En qué situación es especialmente recomendable utilizar edge computing en vez de cloud computing?",
+                options: [
+                    "a. Cuando se necesita procesar datos con latencia ultra baja cerca de la fuente (p. ej., control de un robot en milisegundos).",
+                    "b. Cuando se requiere capacidad de cómputo ilimitada para entrenar un modelo de IA complejo.",
+                    "c. Siempre, porque la nube no aporta ningún beneficio en la industria.",
+                    "d. Para compartir datos abiertos con socios globales en un portal web público."
+                ],
+                correct: 0,
+                exp: "Respuesta correcta: a. Edge se requiere cuando la latencia debe ser mínima e inmediata."
+            },
+            {
+                id: 9,
+                q: "9. ¿Cuál de las siguientes tecnologías NO se asocia como habilitadora de la Industria 4.0?",
+                options: [
+                    "a. Internet de las Cosas (IoT) y sensores inteligentes.",
+                    "b. Inteligencia Artificial y análisis masivo de datos.",
+                    "c. Impresión 3D (fabricación aditiva).",
+                    "d. Máquina de vapor de carbón de ciclo abierto."
+                ],
+                correct: 3,
+                exp: "Respuesta correcta: d. La máquina de vapor pertenece a la Primera Revolución Industrial."
+            },
+            {
+                id: 10,
+                q: "10. ¿Cómo puede la digitalización contribuir a la sostenibilidad ambiental en una empresa?",
+                options: [
+                    "a. Permitiendo un uso más eficiente de energía y reduciendo residuos gracias al control preciso de procesos.",
+                    "b. Aumentando la producción a cualquier coste, aunque implique mayor contaminación.",
+                    "c. Impidiendo medir la huella de carbono al sustituir instrumentos de medición analógicos.",
+                    "d. Desvinculando por completo las operaciones de los objetivos de desarrollo sostenible (ODS)."
+                ],
+                correct: 0,
+                exp: "Respuesta correcta: a. Evita despilfarros de materia prima y reduce consumo energético mediante sensórica."
+            }
+        ];
+
+        // Renderizar Cuestionario
+        function renderQuiz() {
+            const container = document.getElementById('quizForm');
+            container.innerHTML = quizQuestions.map((q, idx) => `
+                <div class="p-5 rounded-xl border border-slate-200 bg-slate-50 space-y-3" id="q-block-${idx}">
+                    <h4 class="font-bold text-sm text-slate-900">${q.q}</h4>
+                    <div class="space-y-2">
+                        ${q.options.map((opt, oIdx) => `
+                            <label class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100 text-xs sm:text-sm text-slate-700">
+                                <input type="radio" name="q${idx}" value="${oIdx}" class="text-brand-600 focus:ring-brand-500">
+                                <span>${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div id="feedback-${idx}" class="hidden p-3 rounded-lg text-xs font-semibold"></div>
+                </div>
+            `).join('');
+        }
+
+        // Evaluar Cuestionario
+        function evaluateQuiz() {
+            let score = 0;
+            quizQuestions.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+                const feedback = document.getElementById(`feedback-${idx}`);
+                feedback.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-red-100', 'text-red-800');
+
+                if (selected) {
+                    const answer = parseInt(selected.value);
+                    if (answer === q.correct) {
+                        score++;
+                        feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+                        feedback.innerHTML = `<i class="fa-solid fa-check-circle mr-1"></i> ¡Correcto! ${q.exp}`;
+                    } else {
+                        feedback.classList.add('bg-red-100', 'text-red-800');
+                        feedback.innerHTML = `<i class="fa-solid fa-times-circle mr-1"></i> Incorrecto. ${q.exp}`;
+                    }
+                } else {
+                    feedback.classList.add('bg-amber-100', 'text-amber-800');
+                    feedback.innerHTML = `<i class="fa-solid fa-exclamation-circle mr-1"></i> No respondida. ${q.exp}`;
+                }
+            });
+
+            const scoreBox = document.getElementById('quizScore');
+            scoreBox.classList.remove('hidden');
+            scoreBox.textContent = `Puntuación: ${score} / 10`;
+            scoreBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Reiniciar Cuestionario
+        function resetQuiz() {
+            document.getElementById('quizForm').reset();
+            quizQuestions.forEach((_, idx) => {
+                const feedback = document.getElementById(`feedback-${idx}`);
+                feedback.classList.add('hidden');
+            });
+            document.getElementById('quizScore').classList.add('hidden');
+        }
+
+        // Buscador Global en Tiempo Real
+        function filterContent() {
+            const inputDesktop = document.getElementById('searchInputDesktop').value.toLowerCase();
+            const inputMobile = document.getElementById('searchInputMobile').value.toLowerCase();
+            const query = inputDesktop || inputMobile;
+
+            const sections = document.querySelectorAll('.searchable-section');
+            const alert = document.getElementById('searchAlert');
+            const alertText = document.getElementById('searchAlertText');
+
+            if (!query.trim()) {
+                sections.forEach(s => s.classList.remove('hidden'));
+                alert.classList.add('hidden');
+                return;
+            }
+
+            let matches = 0;
+            sections.forEach(sec => {
+                const text = sec.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    sec.classList.remove('hidden');
+                    matches++;
+                } else {
+                    sec.classList.add('hidden');
+                }
+            });
+
+            alert.classList.remove('hidden');
+            alertText.textContent = `Mostrando resultados para: "${query}" (${matches} secciones encontradas)`;
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInputDesktop').value = '';
+            document.getElementById('searchInputMobile').value = '';
+            filterContent();
+        }
+
+        // Menú Móvil Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Inicialización en Carga
+        window.onload = function() {
+            switchDept('prod');
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
